@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:06:36 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 13:48:57 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:19:27 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,42 @@ char	**idx_redir(char const *s)
 		return (0);
 	redirs = make_redir(redirs, s);
 	return (redirs);
+}
+
+int	is_meta(int c)
+{
+	if (c == '\0')
+		return (1);
+	if (c == '?')
+		return (0);
+	if (c == '_')
+		return (0);
+	if (!ft_isalnum(c))
+		return (c);
+	return (0);
+}
+
+char	*ft_strjoin2(char *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	if (!s1)
+	{
+		s1 = malloc(1);
+		s1[0] = '\0';
+	}
+	new = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!new)
+		return (NULL);
+	i = -1;
+	while (s1[++i] != '\0')
+		new[i] = s1[i];
+	j = -1;
+	while (s2[++j] != '\0')
+		new[i + j] = s2[j];
+	new[i + j] = '\0';
+	free(s1);
+	return (new);
 }

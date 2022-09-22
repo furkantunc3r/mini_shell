@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:34:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 12:10:06 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:22:50 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,20 @@ void	run_wout_pipe(t_cmd cmd)
 {
 	if (*cmd.cmds)
 	{
-		if (!ft_strncmp(cmd.cmds[0], "echo", 4))
+		if (ft_strstr(cmd.cmds[0], "echo"))
 			ft_echo(cmd.cmds);
-		else if (!ft_strncmp(cmd.cmds[0], "cd", 2))
+		else if (ft_strstr(cmd.cmds[0], "cd"))
 			ft_cd(cmd.cmds[1]);
-		else if (!ft_strncmp(cmd.cmds[0], "pwd", 3))
+		else if (ft_strstr(cmd.cmds[0], "pwd"))
 			ft_pwd();
-		else if (!ft_strncmp(cmd.cmds[0], "env", 3))
+		else if (ft_strstr(cmd.cmds[0], "env"))
 			ft_env(environ);
-		else if (!ft_strncmp(cmd.cmds[0], "export", 6) && cmd.cmds[1] != NULL)
+		else if (ft_strstr(cmd.cmds[0], "export") && cmd.cmds[1] != NULL)
 			ft_export(cmd.cmds);
-		else if (!ft_strncmp(cmd.cmds[0], "unset", 5) && cmd.cmds[1] != NULL)
+		else if (ft_strstr(cmd.cmds[0], "unset") && cmd.cmds[1] != NULL)
 			ft_unset(cmd.cmds);
-		else if (!ft_strncmp(cmd.cmds[0], "exit", 4))
+		else if (ft_strstr(cmd.cmds[0], "exit"))
 			exit(0);
-		else if (!ft_strncmp(cmd.cmds[0], "$?", 2))
-			update_status(1, 1);
 		else
 			run_with_execve(cmd);
 	}
@@ -58,25 +56,38 @@ void	dist_redirs(t_cmd command)
 	free_array(command.cmds);
 }
 
+void	shell_process(char *history, char *prompt, t_cmd cmd)
+{
+	while (42)
+	{
+		history = readline(prompt);
+		if (!history)
+			exit(0);
+		if (!check_syntax(history))
+		{
+			add_history(history);
+			if (history)
+			{
+				history = interpret_arg(history, 0);
+				if (!history)
+					continue ;
+				run_shell(cmd, history);
+				free(history);
+			}
+		}
+	}
+}
+
 int	main(void)
 {
 	t_cmd	cmd;
 	char	*history;
 	char	*prompt;
 
-	signal(SIGINT, shandler);
-	signal(SIGQUIT, shandler);
 	cmd.cmds = NULL;
 	prompt = ft_strdup(getenv("LOGNAME"));
 	prompt = ft_strjoin(prompt, "$ ");
-	while (42)
-	{
-		history = readline(prompt);
-		if (!history)
-			exit(0);
-		run_shell(cmd, history);
-		add_history(history);
-		free(history);
-	}
+	history = NULL;
+	shell_process(history, prompt, cmd);
 	return (0);
 }

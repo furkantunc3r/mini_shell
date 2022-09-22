@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 12:35:04 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:03:17 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	run_with_execve(t_cmd cmd)
 	if (pid == 0)
 	{
 		if (execve(path, cmd.cmds, environ) == -1)
-			perror("Couldn't execute execve");
-		exit (0);
+			perror(cmd.cmds[0]);
+		exit(1);
 	}
 	wait(&cmd.status);
-	update_status(cmd.status, 0);
+	update_status(cmd.status, 0, NULL);
 	free_array(paths);
 	path = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:04:23 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 10:24:21 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:09:16 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_cd(char *path)
 {
 	if (chdir(path) < 0)
 		perror("");
-	update_status(chdir(path), 0);
+	update_status(chdir(path), 0, NULL);
 }
 
 void	ft_pwd(void)
@@ -27,7 +27,7 @@ void	ft_pwd(void)
 	path = getcwd(path, sizeof(path));
 	if (!path)
 	{
-		update_status(1, 0);
+		update_status(1, 0, NULL);
 		return ;
 	}
 	printf("%s\n", path);
@@ -49,6 +49,7 @@ void	ft_echo(char **args)
 	i = 0;
 	if (args[1] == NULL)
 	{
+		update_status(0, 0, NULL);
 		printf("\n");
 		return ;
 	}
@@ -62,18 +63,16 @@ void	ft_echo(char **args)
 	}
 	if (ft_strncmp(args[1], "-n", 2))
 		printf("\n");
-	update_status(0, 0);
+	update_status(0, 0, NULL);
 }
 
-void	update_status(int new_val, int x)
+int	update_status(int new_val, int x, char *str)
 {
 	static int	exit_status;
 
-	if (x == 0)
+	if (x != -10)
 		exit_status = new_val % 255;
-	else if (x == 1)
-	{
-		printf("%d", exit_status);
-		exit_status = 0;
-	}
+	if (x == 1 && str)
+		printf("%s", str);
+	return (exit_status);
 }

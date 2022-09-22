@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:47:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 12:37:38 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:40:28 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	run_shell(t_cmd cmd, char *history)
 {
+	signal(SIGINT, shandler);
+	signal(SIGQUIT, shandler);
 	if (ft_strnstr(history, "<<", ft_strlen(history)))
 		find_eof(history);
 	if (ft_strchr(history, '|'))

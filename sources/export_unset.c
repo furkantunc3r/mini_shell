@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:29:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/21 16:33:02 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:03:41 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	ft_export(char **args)
 		if (!ft_strchr(args[i], '=') || ft_isdigit(args[i][0]))
 		{
 			printf("Not a valid identifier\n");
-			update_status(1, 0);
+			update_status(1, 0, NULL);
 			return ;
 		}
 		ft_export_one(args[i]);
 	}
-	update_status(0, 0);
+	update_status(0, 0, NULL);
 }
 
 void	clear_env_node(char *arg)

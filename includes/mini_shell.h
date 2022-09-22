@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 13:51:16 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:58:57 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		ll_than(char *file);
 void		g_than(char *file);
 void		gg_than(char *file);
 int			check_for_redir(char *cmd);
-void		update_status(int new_val, int x);
+int			update_status(int new_val, int x, char *str);
 void		run_shell(t_cmd cmd, char *history);
 void		shandler(int signal);
 void		file_creator(t_cmd command);
@@ -72,4 +72,21 @@ void		duplicate_fds(int **fd, t_cmd cmd, int i, int j);
 int			red_count(char *str);
 char		**make_redir(char **redirs, char const *s);
 
+// expansion
+int			is_meta(int c);
+char		*ft_strjoin2(char *s1, char const *s2);
+char		*append_char(char *str, char c);
+char		*check_env(char *str);
+char		*expand_value(char *arg, int *index);
+void		get_value(char *arg, char **new, int *index);
+char		*interpret_arg(char *arg, int which);
+
+// syntax control
+int			determine_syntax(char *str, int i);
+int			check_right(int pos, char *str);
+int			check_right_r(int pos, char *str);
+int			check_for_gr_le_signs(char *str, int len, int i);
+int			check_for_pipe_syntax(char *str, int i);
+int			check_syntax(char *str);
+int			char_count(char *str, char c);
 #endif
