@@ -6,34 +6,53 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 16:03:17 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:06:17 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	run_with_execve(t_cmd cmd)
+char	*get_path(t_cmd cmd)
 {
-	char	**paths;
 	char	*path;
-	int		pid;
+	char	**paths;
 
 	paths = ft_split(getenv("PATH"), ':');
 	if (ft_strchr(cmd.cmds[0], '/'))
-		path = cmd.cmds[0];
+		path = ft_strdup(cmd.cmds[0]);
 	else
-		path = find_path(cmd.cmds[0], paths);
-	pid = fork();
-	if (pid == 0)
 	{
-		if (execve(path, cmd.cmds, environ) == -1)
-			perror(cmd.cmds[0]);
-		exit(1);
+		if (!getenv("PATH"))
+		{
+			update_status(1, 1, "command not found\n");
+			return (NULL);
+		}
+		path = find_path(cmd.cmds[0], paths);
 	}
-	wait(&cmd.status);
-	update_status(cmd.status, 0, NULL);
-	free_array(paths);
-	path = NULL;
+	if (paths)
+		free_array(paths);
+	return (path);
+}
+
+void	run_with_execve(t_cmd cmd)
+{
+	int		pid;
+	char	*path;
+
+	path = get_path(cmd);
+	if (path)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execve(path, cmd.cmds, environ) == -1)
+				perror(cmd.cmds[0]);
+			exit(1);
+		}
+		wait(&cmd.status);
+		update_status(cmd.status, 0, NULL);
+		free(path);
+	}
 }
 
 t_cmd	add_to_first(char *cmd)

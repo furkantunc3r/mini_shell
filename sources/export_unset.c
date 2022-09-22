@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:29:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 16:03:41 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:01:55 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,28 @@ void	ft_export(char **args)
 	update_status(0, 0, NULL);
 }
 
-void	clear_env_node(char *arg)
+void	free_env(char *arg)
 {
-	int		i;
-	int		j;
 	char	**temp;
+	char	*temp2;
 
-	i = 0;
-	j = 0;
-	while (environ[i])
+	temp2 = NULL;
+	temp = environ;
+	if (where_env(arg) < 0)
+		return ;
+	while (*environ != NULL)
 	{
-		temp = ft_split(environ[i], '=');
-		if (!ft_strncmp(temp[0], arg, ft_strlen(arg)))
-		{
-			free(environ[j]);
-			j++;
-		}
-		environ[i] = environ[j];
-		i++;
-		j++;
-		free_array(temp);
+		if (!where_env(arg))
+			break ;
+		environ++;
 	}
+	while (*environ != NULL)
+	{
+		if (*environ)
+			*environ = *(environ + 1);
+		environ++;
+	}
+	environ = temp;
 }
 
 void	ft_unset(char **args)
@@ -94,5 +95,9 @@ void	ft_unset(char **args)
 
 	i = 0;
 	while (args[++i])
-		clear_env_node(args[i]);
+	{
+		if (!is_alnum(args[i]))
+			update_status(256, 0, "not a valid identifier\n");
+		free_env(args[i]);
+	}
 }

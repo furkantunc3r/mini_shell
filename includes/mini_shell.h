@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 15:58:57 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:51:58 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void		dist_pipe(t_cmd cmd, int **fd, int *pid);
 void		duplicate_fds(int **fd, t_cmd cmd, int i, int j);
 int			red_count(char *str);
 char		**make_redir(char **redirs, char const *s);
+void		free_env(char *arg);
+int			is_alnum(char *str);
+int			where_env(char *s2);
 
 // expansion
 int			is_meta(int c);
