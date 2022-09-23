@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:04:23 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 11:07:58 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:25:35 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	ft_cd(char *path)
 {
-	if (chdir(path) < 0)
+	if (update_status(chdir(path), 0, NULL) < 0)
 		perror("");
-	update_status(chdir(path), 0, NULL);
 }
 
 void	ft_pwd(void)

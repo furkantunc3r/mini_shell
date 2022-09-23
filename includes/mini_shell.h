@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 12:01:54 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 15:39:46 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ char		**make_redir(char **redirs, char const *s);
 void		free_env(char *arg);
 int			is_alnum(char *str);
 int			where_env(char *s2);
-char		**ft_split2(char *str, char sep);
+char		**shell_split(char *str, char sep);
 int			is_quote(char c);
+int			quote_state(char *str, int pos);
+int			char_count(char *str, char c);
 
 // expansion
 int			is_meta(int c);
@@ -86,6 +88,7 @@ char		*expand_value(char *arg, int *index);
 void		get_value(char *arg, char **new, int *index);
 char		*interpret_arg(char *arg, int which);
 void		expansion(t_cmd *cmd);
+char		**splitter(char *str, char sep, int i, int j);
 
 // syntax control
 int			determine_syntax(char *str, int i);

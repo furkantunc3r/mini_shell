@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:34:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 11:17:05 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:13:49 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	shell_process(char *history, char *prompt, t_cmd cmd)
 		history = readline(prompt);
 		if (!history)
 			exit(0);
+		add_history(history);
 		if (!check_syntax(history))
 		{
-			add_history(history);
 			if (history)
 			{
 				if (!history)
@@ -75,6 +75,15 @@ void	shell_process(char *history, char *prompt, t_cmd cmd)
 			}
 		}
 	}
+}
+
+void	expansion(t_cmd *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd->cmds[++i] != NULL)
+		cmd->cmds[i] = interpret_arg(cmd->cmds[i], 0);
 }
 
 int	main(void)

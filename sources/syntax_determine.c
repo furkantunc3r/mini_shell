@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:11:27 by mhaksal           #+#    #+#             */
-/*   Updated: 2022/09/22 16:03:08 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 15:42:57 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,4 @@ int	determine_syntax(char *str, int i)
 					"syntax error near unexpected token '>'\n"));
 	}
 	return (0);
-}
-
-int	char_count(char *str, char c)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = 0;
-	while (str[++i])
-	{
-		if (str[i] == c)
-			j++;
-	}
-	return (j);
 }

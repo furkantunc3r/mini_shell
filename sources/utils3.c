@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:47:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 12:25:00 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:26:23 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ void	run_shell(t_cmd cmd, char *history)
 {
 	signal(SIGINT, shandler);
 	signal(SIGQUIT, shandler);
-	if (ft_strnstr(history, "<<", ft_strlen(history)))
-		find_eof(history);
-	if (ft_strchr(history, '|'))
+	find_eof(history);
+	if (char_count(history, '|'))
 	{
 		cmd.cmds = ft_split(history, '|');
 		run_with_pipe(cmd);
 		free_array(cmd.cmds);
 	}
-	else if (!check_for_redir(history))
+	else if (char_count(history, '<') || char_count(history, '>'))
 		parse_cmd(history);
 	else
 	{
-		cmd.cmds = ft_split2(history, 32);
+		cmd.cmds = shell_split(history, 32);
 		expansion(&cmd);
 		run_wout_pipe(cmd);
 	}
@@ -40,8 +39,8 @@ void	shandler(int signal)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
 		rl_redisplay();
+		rl_replace_line("", 0);
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -58,19 +57,22 @@ void	find_eof(char *str)
 	int		i;
 
 	i = -1;
-	temp = ft_split_cmds(str);
-	temp2 = idx_redir(str);
-	while (temp2[++i])
+	if (char_count(str, '<'))
 	{
-		if (ft_strstr(temp2[i], "<<"))
+		temp = ft_split_cmds(str);
+		temp2 = idx_redir(str);
+		while (temp2[++i])
 		{
-			ret = ft_split(temp[i + 1], '|');
-			ll_than(ft_strtrim(ret[0], " "));
-			free_array(ret);
+			if (ft_strstr(temp2[i], "<<"))
+			{
+				ret = ft_split(temp[i + 1], '|');
+				ll_than(ft_strtrim(ret[0], " "));
+				free_array(ret);
+			}
 		}
+		free_array(temp);
+		free_array(temp2);
 	}
-	free_array(temp);
-	free_array(temp2);
 }
 
 void	file_creator(t_cmd command)

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 12:18:41 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:04:06 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_path(t_cmd cmd)
 	{
 		if (!getenv("PATH"))
 		{
-			update_status(1, 1, "command not found\n");
+			update_status(1, 0, "command not found\n");
 			return (NULL);
 		}
 		path = find_path(cmd.cmds[0], paths);
@@ -68,7 +68,7 @@ t_cmd	add_to_first(char *cmd)
 	command.cmds = ft_split_cmds(cmd);
 	while (command.cmds[++i])
 	{
-		temp2 = ft_split2(command.cmds[i], 32);
+		temp2 = shell_split(command.cmds[i], 32);
 		if (temp2[1])
 		{
 			while (temp2[++j])
@@ -93,7 +93,7 @@ void	parse_cmd(char *cmd)
 
 	pid = 0;
 	command = add_to_first(cmd);
-	temp.cmds = ft_split2(command.cmds[0], 32);
+	temp.cmds = shell_split(command.cmds[0], 32);
 	expansion(&temp);
 	expansion(&command);
 	command.redirs = idx_redir(cmd);

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:50:33 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 12:30:01 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 13:45:17 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,13 @@ int	is_quote(char c)
 	return (0);
 }
 
-char	**ft_split2(char *str, char sep)
+char	**splitter(char *str, char sep, int i, int j)
 {
 	char	**new;
-	int		i;
-	int		j;
 	int		flag;
 
-	i = 0;
-	j = 0;
 	flag = -1;
 	new = (char **)ft_calloc(20, 8);
-	str = ft_strtrim(str, " ");
 	while (str[i])
 	{
 		while (str[i] && str[i] != sep)
@@ -90,16 +85,19 @@ char	**ft_split2(char *str, char sep)
 			i++;
 		j++;
 	}
-	new[j] = NULL;
-	free(str);
 	return (new);
 }
 
-void	expansion(t_cmd *cmd)
+char	**shell_split(char *str, char sep)
 {
-	int	i;
+	char	**new;
+	int		i;
+	int		j;
 
-	i = -1;
-	while (cmd->cmds[++i] != NULL)
-		cmd->cmds[i] = interpret_arg(cmd->cmds[i], 0);
+	i = 0;
+	j = 0;
+	str = ft_strtrim(str, " ");
+	new = splitter(str, sep, i, j);
+	free(str);
+	return (new);
 }

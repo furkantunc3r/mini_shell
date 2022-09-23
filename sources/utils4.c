@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:06:36 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 12:01:31 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 13:44:46 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	dist_pipe(t_cmd cmd, int **fd, int *pid)
 				parse_cmd(cmd.cmds[i]);
 			else
 			{
-				holder.cmds = ft_split2(cmd.cmds[i], 32);
+				holder.cmds = shell_split(cmd.cmds[i], 32);
 				expansion(&holder);
 				run_wout_pipe(holder);
 			}

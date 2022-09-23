@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:11:29 by mhaksal           #+#    #+#             */
-/*   Updated: 2022/09/22 16:03:04 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 15:47:09 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	check_for_gr_le_signs(char *str, int len, int i)
 {
 	while (str[++i])
 	{
-		if (str[i] == '<' || str[i] == '>')
+		if ((str[i] == '<' || str[i] == '>')
+			&& (char_count(&str[i], '<') || char_count(&str[i], '>')))
 		{
 			if (i < len && str[i + 1] == '>')
 			{
-				i++;
-				if (!check_right_r(i, str))
+				if (!check_right_r(++i, str))
 					return (update_status(258 * 256, 1,
 							"syntax error near unexpected token 'newline'\n"));
 			}
