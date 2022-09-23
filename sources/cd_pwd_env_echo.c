@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:04:23 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 16:25:35 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:56:43 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_pwd(void)
 		return ;
 	}
 	printf("%s\n", path);
+	free(path);
 }
 
 void	ft_env(char **environ)
