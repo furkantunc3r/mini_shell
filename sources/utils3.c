@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:47:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 10:15:05 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 12:25:00 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	run_shell(t_cmd cmd, char *history)
 		parse_cmd(history);
 	else
 	{
-		cmd.cmds = ft_split(history, ' ');
+		cmd.cmds = ft_split2(history, 32);
+		expansion(&cmd);
 		run_wout_pipe(cmd);
 	}
 }

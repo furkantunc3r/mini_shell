@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:50:33 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 11:09:48 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 12:30:01 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ft_split2(char *str, char sep)
 	i = 0;
 	j = 0;
 	flag = -1;
-	new = (char **)malloc(20 * 8);
+	new = (char **)ft_calloc(20, 8);
 	str = ft_strtrim(str, " ");
 	while (str[i])
 	{
@@ -91,5 +91,15 @@ char	**ft_split2(char *str, char sep)
 		j++;
 	}
 	new[j] = NULL;
+	free(str);
 	return (new);
+}
+
+void	expansion(t_cmd *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd->cmds[++i] != NULL)
+		cmd->cmds[i] = interpret_arg(cmd->cmds[i], 0);
 }

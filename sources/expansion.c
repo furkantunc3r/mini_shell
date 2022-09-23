@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:18:09 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 16:09:39 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 11:41:32 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*append_char(char *str, char c)
 	new[len++] = c;
 	new[len] = '\0';
 	free(str);
+	str = NULL;
 	return (new);
 }
 

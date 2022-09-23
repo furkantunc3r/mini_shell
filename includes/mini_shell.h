@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 09:58:33 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 12:01:54 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char		*check_env(char *str);
 char		*expand_value(char *arg, int *index);
 void		get_value(char *arg, char **new, int *index);
 char		*interpret_arg(char *arg, int which);
+void		expansion(t_cmd *cmd);
 
 // syntax control
 int			determine_syntax(char *str, int i);
