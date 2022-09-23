@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 17:06:17 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:23:15 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_path(t_cmd cmd)
 			update_status(1, 1, "command not found\n");
 			return (NULL);
 		}
-		path = find_path(cmd.cmds[0], paths);
+		path = ft_strdup(find_path(cmd.cmds[0], paths));
 	}
 	if (paths)
 		free_array(paths);

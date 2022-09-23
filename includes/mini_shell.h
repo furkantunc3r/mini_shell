@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 16:51:58 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 09:58:33 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char		**make_redir(char **redirs, char const *s);
 void		free_env(char *arg);
 int			is_alnum(char *str);
 int			where_env(char *s2);
+char		**ft_split2(char *str, char sep);
+int			is_quote(char c);
 
 // expansion
 int			is_meta(int c);
