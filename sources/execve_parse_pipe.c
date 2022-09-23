@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 17:23:15 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 11:07:58 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_path(t_cmd cmd)
 	char	*path;
 	char	**paths;
 
+	path = NULL;
 	paths = ft_split(getenv("PATH"), ':');
 	if (ft_strchr(cmd.cmds[0], '/'))
 		path = ft_strdup(cmd.cmds[0]);
@@ -27,7 +28,7 @@ char	*get_path(t_cmd cmd)
 			update_status(1, 1, "command not found\n");
 			return (NULL);
 		}
-		path = ft_strdup(find_path(cmd.cmds[0], paths));
+		path = find_path(cmd.cmds[0], paths);
 	}
 	if (paths)
 		free_array(paths);
@@ -40,19 +41,19 @@ void	run_with_execve(t_cmd cmd)
 	char	*path;
 
 	path = get_path(cmd);
-	if (path)
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
+		if (execve(path, cmd.cmds, environ) == -1)
 		{
-			if (execve(path, cmd.cmds, environ) == -1)
-				perror(cmd.cmds[0]);
-			exit(1);
+			update_status(1, 1, "Command not found: ");
+			printf("%s\n", cmd.cmds[0]);
 		}
-		wait(&cmd.status);
-		update_status(cmd.status, 0, NULL);
-		free(path);
+		exit(1);
 	}
+	wait(&cmd.status);
+	update_status(cmd.status, 0, NULL);
+	free(path);
 }
 
 t_cmd	add_to_first(char *cmd)

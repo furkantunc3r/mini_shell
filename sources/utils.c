@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:26:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/22 17:23:01 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 10:31:27 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*find_path(char *cmd, char **paths)
 	struct dirent	*vals;
 	DIR				*curr_path;
 	int				i;
+	char			*ret;
 
 	i = -1;
 	while (paths[++i])
@@ -60,7 +61,8 @@ char	*find_path(char *cmd, char **paths)
 				paths[i] = ft_strjoin(paths[i], "/");
 				closedir(curr_path);
 				paths[i] = ft_strjoin(paths[i], cmd);
-				return (paths[i]);
+				ret = ft_strdup(paths[i]);
+				return (ret);
 			}
 			vals = readdir(curr_path);
 		}

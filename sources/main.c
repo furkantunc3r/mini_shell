@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:34:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 09:59:28 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/23 11:11:20 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	shell_process(char *history, char *prompt, t_cmd cmd)
 			add_history(history);
 			if (history)
 			{
+				history = interpret_arg(history, 0);
 				if (!history)
 					continue ;
 				run_shell(cmd, history);
