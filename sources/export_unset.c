@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:29:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 16:57:34 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 11:15:55 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_export_one(char *arg)
 	{
 		if (!ft_strncmp(environ[i], temp[0], ft_strlen(temp[0])))
 		{
-			free(environ[i]);
 			environ[i] = ft_strdup(arg);
 			free_array(temp);
 			return ;
@@ -52,6 +51,11 @@ void	ft_export(char **args)
 	int		i;
 
 	i = 0;
+	if (!args[1])
+	{
+		printf("\n");
+		return ;
+	}
 	while (args[++i])
 	{
 		if (!ft_strchr(args[i], '=') || ft_isdigit(args[i][0]))
@@ -83,10 +87,7 @@ void	free_env(char *arg)
 	while (*environ != NULL)
 	{
 		if (*environ)
-		{
-			free(*environ);
 			*environ = *(environ + 1);
-		}
 		environ++;
 	}
 	environ = temp;

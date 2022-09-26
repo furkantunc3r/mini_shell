@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:34:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 16:13:49 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 10:03:03 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	run_wout_pipe(t_cmd cmd)
 			ft_pwd();
 		else if (ft_strstr(cmd.cmds[0], "env"))
 			ft_env(environ);
-		else if (ft_strstr(cmd.cmds[0], "export") && cmd.cmds[1] != NULL)
+		else if (ft_strstr(cmd.cmds[0], "export"))
 			ft_export(cmd.cmds);
 		else if (ft_strstr(cmd.cmds[0], "unset") && cmd.cmds[1] != NULL)
 			ft_unset(cmd.cmds);

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:38:56 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 15:39:46 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 09:55:26 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../sources/libft/libft.h"
+# include <sys/wait.h>
+# include <signal.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <stdlib.h>

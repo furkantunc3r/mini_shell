@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_parse_pipe.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merkol <merkol@42kocaeli.com.tr>           +#+  +:+       +#+        */
+/*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 17:01:30 by merkol            #+#    #+#             */
-/*   Updated: 2022/09/23 17:01:31 by merkol           ###   ########.tr       */
+/*   Created: 2022/09/16 15:09:13 by ftuncer           #+#    #+#             */
+/*   Updated: 2022/09/26 09:54:54 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ char	*get_path(t_cmd cmd)
 	char	**paths;
 
 	path = NULL;
+	if (!ft_strchr(getenv("PATH"), ':'))
+	{
+		update_status(1, 0, "command not found\n");
+		return (NULL);
+	}
 	paths = ft_split(getenv("PATH"), ':');
 	if (ft_strchr(cmd.cmds[0], '/'))
 		path = ft_strdup(cmd.cmds[0]);
