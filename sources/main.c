@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:34:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/26 10:03:03 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:36:16 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	run_wout_pipe(t_cmd cmd)
 			ft_env(environ);
 		else if (ft_strstr(cmd.cmds[0], "export"))
 			ft_export(cmd.cmds);
-		else if (ft_strstr(cmd.cmds[0], "unset") && cmd.cmds[1] != NULL)
+		else if (ft_strstr(cmd.cmds[0], "unset"))
 			ft_unset(cmd.cmds);
 		else if (ft_strstr(cmd.cmds[0], "exit"))
 			exit(0);
@@ -58,6 +58,8 @@ void	dist_redirs(t_cmd command)
 
 void	shell_process(char *history, char *prompt, t_cmd cmd)
 {
+	signal(SIGINT, shandler);
+	signal(SIGQUIT, shandler);
 	while (42)
 	{
 		history = readline(prompt);
@@ -68,8 +70,6 @@ void	shell_process(char *history, char *prompt, t_cmd cmd)
 		{
 			if (history)
 			{
-				if (!history)
-					continue ;
 				run_shell(cmd, history);
 				free(history);
 			}

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:47:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 16:26:23 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:10:59 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	run_shell(t_cmd cmd, char *history)
 {
-	signal(SIGINT, shandler);
-	signal(SIGQUIT, shandler);
 	find_eof(history);
 	if (char_count(history, '|'))
 	{
@@ -36,7 +34,7 @@ void	run_shell(t_cmd cmd, char *history)
 void	shandler(int signal)
 {
 	if (signal == SIGINT)
-	{
+	{	
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
@@ -54,6 +52,7 @@ void	find_eof(char *str)
 	char	**temp;
 	char	**temp2;
 	char	**ret;
+	char	**ret2;
 	int		i;
 
 	i = -1;
@@ -66,8 +65,10 @@ void	find_eof(char *str)
 			if (ft_strstr(temp2[i], "<<"))
 			{
 				ret = ft_split(temp[i + 1], '|');
-				ll_than(ft_strtrim(ret[0], " "));
+				ret2 = ft_split(temp[i + 1], 32);
+				ll_than(ft_strtrim(ret2[0], " "));
 				free_array(ret);
+				free_array(ret2);
 			}
 		}
 		free_array(temp);

@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:29:02 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/26 11:15:55 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:37:25 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ void	ft_unset(char **args)
 	int	i;
 
 	i = 0;
+	if (!args[1])
+	{
+		update_status(1, 1, "not enough arguments\n");
+		return ;
+	}
 	while (args[++i])
 	{
 		if (!is_alnum(args[i]))
