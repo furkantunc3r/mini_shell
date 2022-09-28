@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils6.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merkol <merkol@42kocaeli.com.tr>           +#+  +:+       +#+        */
+/*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:05 by merkol            #+#    #+#             */
-/*   Updated: 2022/09/26 11:30:06 by merkol           ###   ########.tr       */
+/*   Updated: 2022/09/27 11:52:57 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,20 @@ int	char_count(char *str, char c)
 		i++;
 	}
 	return (ret);
+}
+
+int	is_alnum(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
+			return (0);
+		i++;
+	}
+	return (1);
 }

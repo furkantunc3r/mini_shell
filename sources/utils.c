@@ -6,7 +6,7 @@
 /*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:26:27 by ftuncer           #+#    #+#             */
-/*   Updated: 2022/09/23 10:31:27 by ftuncer          ###   ########.fr       */
+/*   Updated: 2022/09/27 12:52:46 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*find_path(char *cmd, char **paths)
 	char			*ret;
 
 	i = -1;
-	while (paths[++i])
+	while (paths[++i] && opendir(paths[i]))
 	{
 		curr_path = opendir(paths[i]);
 		vals = readdir(curr_path);

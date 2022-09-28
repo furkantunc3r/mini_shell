@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: merkol <merkol@42kocaeli.com.tr>           +#+  +:+       +#+        */
+/*   By: ftuncer <ftuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:26:50 by merkol            #+#    #+#             */
-/*   Updated: 2022/09/26 11:26:51 by merkol           ###   ########.tr       */
+/*   Updated: 2022/09/27 11:52:58 by ftuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
-
-int	is_alnum(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 int	where_env(char *s2)
 {
@@ -59,28 +43,42 @@ int	is_quote(char c)
 	return (0);
 }
 
+void	split_quote(char *str, char **new, char sep, int *i)
+{
+	int	a;
+
+	a = 0;
+	while (str[*i])
+	{
+		if (!a && is_quote(str[*i]))
+		{
+			a = str[*i];
+			sep = 0;
+		}
+		if (str[*i] != sep)
+			new[0] = append_char(new[0], str[*i]);
+		else
+			break ;
+		if (a && str[*i] != a)
+			sep = 0;
+		else if (!a)
+			sep = 32;
+		(*i)++;
+	}
+}
+
 char	**splitter(char *str, char sep, int i, int j)
 {
 	char	**new;
 	int		flag;
+	int		a;
 
 	flag = -1;
+	a = 0;
 	new = (char **)ft_calloc(20, 8);
 	while (str[i])
 	{
-		while (str[i] && str[i] != sep)
-		{
-			flag += is_quote(str[i]);
-			if (str[i] != sep)
-				new[j] = append_char(new[j], str[i]);
-			else if ((is_quote(str[i]) && str[i + 1] == 32))
-				break ;
-			if (flag % 2 == 0)
-				sep = 0;
-			else
-				sep = 32;
-			i++;
-		}
+		split_quote(str, &new[j], sep, &i);
 		while (str[i] == 32)
 			i++;
 		j++;
